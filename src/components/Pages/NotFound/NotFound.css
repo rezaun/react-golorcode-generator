@@ -1,0 +1,22 @@
+.notfoundWrapper{
+    background-color: bisque;
+    padding: 180px 0;
+    text-align: center;
+
+}
+.notfoundWrapper h1{
+    font-size: 124px;
+}
+.notfoundWrapper a{
+    color: red;
+    text-decoration: none;
+    transition: 0.5s;
+    padding: 10px;
+    
+}
+.notfoundWrapper a:hover{
+    background-color: tomato;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
