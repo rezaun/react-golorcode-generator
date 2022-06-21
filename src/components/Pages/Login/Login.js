@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { auth } from '../../../firebase.init';
 import './login.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,7 +23,9 @@ const Login = () => {
     // const [error, setError] = useState("");
 
     const [signInWithEmail, user, loading, hookError,] = useSignInWithEmailAndPassword(auth);
-
+    const [signInWithGoogle, googleUser, loading2, googleError] = useSignInWithGoogle(auth);
+    //second
+    //const [user] = useAuthState(auth);
     const handleEmailChange = (e) => {
         const emailRegex = /\S+@\S+\.\S+/;
         const validEmail = emailRegex.test(e.target.value);
@@ -71,11 +73,15 @@ const Login = () => {
     },[user])
 
     useEffect(() => {
-        if (hookError) {
+        const error = hookError || googleError;
+        if (error) {
             //toast(hookError.message);
-            switch (hookError?.code) {
+            switch (error?.code) {
                 case "auth/invalid-email":
                     toast('invalid email provided, Please provide a valid email');
+                    break;
+                case "auth/email-already-exists":
+                    toast('Your email and password already exits');
                     break;
                 case "auth/email-already-exists":
                     toast('Your email and password already exits');
@@ -89,7 +95,7 @@ const Login = () => {
             }
         }
 
-    }, [hookError])
+    }, [hookError, googleError])
 
 
     return (
@@ -113,6 +119,7 @@ const Login = () => {
                 <ToastContainer />
                 <p>Don't have an account? <Link to="/signup">sign up first</Link></p>
             </form>
+            <button className='btn btn-success' onClick={()=>signInWithGoogle()}>Sign in with Google</button>
         </div>
     );
 };
