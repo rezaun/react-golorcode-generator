@@ -5,6 +5,7 @@ import About from './components/Pages/About/About';
 import Navbar from "./components/Pages/Navbar/Navbar";
 import NotFound from "./components/Pages/NotFound/NotFound";
 import Login from "./components/Pages/Login/Login";
+import SignUp from './components/Pages/SignUp/SignUp';
 import RequireAuth from "./components/Auth/RequireAuth/RequireAuth";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <About />
           </RequireAuth>
         }></Route>
+        <Route path="/signup" element={<SignUp/>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
