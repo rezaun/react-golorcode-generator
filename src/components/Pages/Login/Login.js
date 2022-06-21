@@ -4,7 +4,8 @@ import { auth } from '../../../firebase.init';
 import './login.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate, useLocation } from 'react-router-dom';
+
 
 const Login = () => {
     const [userInfo, setUserInfo] = useState({
@@ -46,18 +47,28 @@ const Login = () => {
             setErrors({ ...errors, password: "" })
         } else {
             setErrors({ ...errors, password: 'Invalid Password' });
-            setUserInfo({ ...userInfo, email: "" })
+            setUserInfo({ ...userInfo, password: "" })
         }
 
         // console.log(validPassword);
     }
 
     const handleLogin = (e) => {
+        //console.log(userInfo);
         e.preventDefault();
         signInWithEmail(userInfo.email, userInfo.password)
 
         //console.log(email,password);
     }
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+    
+    useEffect(()=>{
+        if(user){
+            navigate(from)
+        }
+    },[user])
 
     useEffect(() => {
         if (hookError) {
