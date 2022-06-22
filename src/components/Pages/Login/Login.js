@@ -83,9 +83,6 @@ const Login = () => {
                 case "auth/email-already-exists":
                     toast('Your email and password already exits');
                     break;
-                case "auth/email-already-exists":
-                    toast('Your email and password already exits');
-                    break;
                 case "auth/invalid-password":
                     toast('Your password has been wrong');
                     break;
